@@ -1,0 +1,8 @@
+# Keeber board configuration
+
+# Copyright (c) 2020 Kagen Aeby (Kikokeyco)
+# SPDX-License-Identifier: MIT
+
+config BOARD_KEEBER
+	bool "Keeber"
+	depends on SOC_NRF52840_QIAA
