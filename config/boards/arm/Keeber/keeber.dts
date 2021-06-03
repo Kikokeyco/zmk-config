@@ -40,60 +40,7 @@
         b-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <2>;
     };
-	leds {
-			compatible = "gpio-leds";
-			led_0: led_green {
-				gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
-				label = "Green LED";
-				status = "okay";
-			};
-			led_1: led_red {
-				gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
-				label = "Red LED";
-				status = "okay";
-			};
-			led_2: led_blue {
-				gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
-				label = "Blue LED";
-				status = "okay";
-			};
-		};
 
-	pwmleds {
-		compatible = "pwm-leds";
-		pwm_led_0: pwm_led_green {
-			pwms = <&pwm0 28>;
-			label = "Green PWM LED";
-			status = "okay";
-		};
-		pwm_led_1: pwm_led_red {
-			pwms = <&pwm0 2>;
-			label = "Red PWM LED";
-			status = "okay";
-		};
-		pwm_led_2: pwm_led_blue {
-			pwms = <&pwm0 4>;
-			label = "Blue PWM LED";
-			status = "okay";
-		};
-	};
-	
-	// currently unused. Buzzer on pin P0.29
-	pwm_buzzer {
-		compatible = "pwm_buzzer";
-		pwms = <&pwm0 29>;
-		label = "PWM BUZZER";
-		status = "okay";
-	};
-
-	/* These aliases are provided for compatibility with samples */
-	aliases {
-		ledgreen = &led_0;
-		ledred   = &led_1;
-		ledblue  = &led_2;
-		pwmledgreen = &pwm_led_0;
-		pwmledred = &pwm_led_1;
-		pwmledblue = &pwm_led_2;
 	};
 
 	ext-power {
