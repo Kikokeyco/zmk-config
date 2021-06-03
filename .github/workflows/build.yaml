@@ -51,9 +51,26 @@ jobs:
         id: west-build-keeber
         with:
           args: 'build "-s zmk/app -b keeber -- -DZMK_CONFIG=/github/workspace/config"'
+      - name: Rename keeber
+        run: sudo mv build/zephyr/zmk.uf2 build/zephyr/keeberzmk.uf2 && sudo mv build/zephyr/zmk.hex build/zephyr/keeberzmk.hex
       - name: Archive (keeber)
         uses: actions/upload-artifact@v2
         with:
           name: keeber
           path: build/zephyr/zmk.uf2
+      - name: West Build (keeber Shield)
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-build-keeber-shield
+        with:
+          args: 'build "--pristine -s zmk/app -b keeber -- -DSHIELD=keeber -DZMK_CONFIG=/github/workspace/config"'
+      - name: Archive (keeber Shield)
+        uses: actions/upload-artifact@v2
+        with:
+          name: keeber_keeber
+          path: build/zephyr/zmk.uf2
+      - name: Archive keeber Shield .config
+        uses: actions/upload-artifact@v2
+        with:
+          name: keeber_config
+          path: build/zephyr/.config
  
