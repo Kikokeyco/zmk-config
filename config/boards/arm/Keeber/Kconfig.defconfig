@@ -1,10 +1,10 @@
-# Copyright (c) 2020 Stefan Sundin (4pplet)
+# Copyright (c) 2020 Kagen Aeby (Kikokeyco)
 # SPDX-License-Identifier: MIT
 
-if BOARD_CYBER60_REV_B
+if BOARD_KEEBER
 
 config ZMK_KEYBOARD_NAME
-	default "cyber60 Rev B"
+	default "keeber"
 
 if USB
 
@@ -28,4 +28,4 @@ config ZMK_USB
 config ZMK_BATTERY_VOLTAGE_DIVIDER
 	default y
 
-endif # BOARD_CYBER60_REV_B
+endif # BOARD_KEEBER
