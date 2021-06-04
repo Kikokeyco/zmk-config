@@ -41,7 +41,6 @@
         resolution = <2>;
     };
 
-	};
 
 	ext-power {
 		compatible = "zmk,ext-power-generic";
