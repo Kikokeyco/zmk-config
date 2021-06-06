@@ -28,11 +28,13 @@
 		full-ohms = <(1000000 + 2000000)>;
 	};
 
-	sensors {
-    	compatible = "zmk,keymap-sensors";
-    	sensors = <&encoder>;
+	leds {
+		compatible = "gpio-leds";
+		blue_led: led_0 {
+			gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+			label = "Blue LED";
+		};
 	};
-
 
 	ext-power {
 		compatible = "zmk,ext-power-generic";
