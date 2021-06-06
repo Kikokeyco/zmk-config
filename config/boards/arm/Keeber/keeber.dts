@@ -33,14 +33,6 @@
     	sensors = <&encoder>;
 	};
 
-	encoder: encoder_1 {
-        compatible = "alps,ec11";
-        label = "ENCODER";
-        a-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <2>;
-    };
-
 
 	ext-power {
 		compatible = "zmk,ext-power-generic";
@@ -109,10 +101,10 @@ RC(4,0) RC(4,1) RC(4,2)  RC(4,5)  RC(4,9) RC(4,10) RC(4,11)  RC(4,13) RC(4,14)
 };
 
 &spi0 {
-	// Underglow data: P0.31 
+	// Underglow data: P0.02 
   compatible = "nordic,nrf-spim";
   status = "okay";
-  mosi-pin = <31>;
+  mosi-pin = <02>;
   // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
   sck-pin = <6>;
   miso-pin = <8>;
