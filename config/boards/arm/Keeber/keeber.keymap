@@ -17,16 +17,14 @@
 // | CAPS  |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |  ENTER  |  PGDN  |
 // | SHIFT | Z |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |    Shift   | UP |  END  |
 // |  LCTL  |  LWIN  |  LALT  |  SPACE  |  RWIN | FN | LEFT |  DOWN  |  RIGHT  |
-// | Rotary | (<-- Rotary switch) ----------------------------------------------------------- 
+// ------------------------------------------------------------------------------------------- 
 			bindings = <
 	&kp 0x29	 &kp 0x1E 	&kp 0x1F	&kp 0x20 	&kp 0x21  &kp 0x22  &kp 0x23 	&kp 0x24 	&kp 0x25  &kp 0x26	&kp 0x27	&kp 0x2D	&kp 0x2E  	&kp 0x2A	&kp 0x4C
 	&kp 0x2B     &kp   Q   	&kp   W   	&kp   E   	&kp   R   &kp   T   &kp   Y   	&kp   U   	&kp   I   &kp   O   &kp   P   	&kp LBKT 	&kp RBKT	&kp BSLH    &kp PG_UP
 	&kp 0x39 	 &kp   A   	&kp   S   	&kp   D   	&kp   F   &kp   G   &kp   H   	&kp   J   	&kp   K   &kp   L   &kp  SCLN  	&kp  QUOT   &kp RET		&kp PG_DN
 	&kp LSFT 	 &kp   Z   	&kp   X   	&kp   C     &kp   V   &kp   B   &kp   N   	&kp   M     &kp  CMMA &kp  DOT  &kp  FSLH	&kp RSFT 	&kp UP      &kp END
-	&kp LCTL 	 &kp LGUI   &kp LALT				&kp 0x2C			    &kp RGUI	&mo  FN1  			  &kp  LEFT	&kp  DOWN 	&kp RIGHT		
-	&kp C_PP	
+	&kp LCTL 	 &kp LGUI   &kp LALT				&kp 0x2C			    &kp RGUI	&mo  FN1  			  &kp  LEFT	&kp  DOWN 	&kp RIGHT			
 			>;
-			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
 		};
 		settings_layer {
 // Settings layer to change keyboard behaviour
