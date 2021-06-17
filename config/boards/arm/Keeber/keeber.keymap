@@ -38,7 +38,7 @@
 			bindings = <
 	&reset	 &kp F1 	&kp F2	&kp F3 	&kp F4  &kp F5  &kp F6 	&kp F7 	&kp F8  &kp F9	&kp F10	&kp F11	&kp F12  	&kp 0x2A	&bt BT_CLR
 	&kp 0x2B     &kp   Q   	&kp   C_AL_WORD   	&kp   E   	&kp   R   &kp   T   &kp   Y   	&kp   U   	&kp   I   &kp   O   &kp   P   	&kp LBKT 	&kp RBKT	&kp BSLH    &kp C_VOL_UP
-	&kp 0x39 	 &kp   BT_NXT   	&kp   BT_PRV   	&kp   D   	&kp   F_FIND   &kp   G   &kp   H   	&kp   J   	&kp   C_AL_CALC   &kp   L   &kp  SCLN  	&kp  QUOT   &kp RET		&kp C_VOL_DN
+	&kp 0x39 	 &bt   BT_NXT   	&bt   BT_PRV   	&kp   D   	&kp   F_FIND   &kp   G   &kp   H   	&kp   J   	&kp   C_AL_CALC   &kp   L   &kp  SCLN  	&kp  QUOT   &kp RET		&kp C_VOL_DN
 	&kp LSFT 	 &bt   BT_SEL 0   	&bt   BT_SEL 1   	&bt  BT_SEL 2   &out  OUT_USB   &out OUT_BLE    &kp   N   	&kp   M     &kp  0x2264 &kp  0x2265  &kp  C_AC_SEARCH	&kp RSFT 	&kp C_AC_ZOOM_IN      &kp END
 	&kp LCTL 	 &kp LGUI   &kp LALT				&out OUT_TOG			    &kp RGUI	&mo  FN  			  &kp  LEFT	&kp  C_AC_ZOOM_OUT 	&kp RIGHT	
 			>;
