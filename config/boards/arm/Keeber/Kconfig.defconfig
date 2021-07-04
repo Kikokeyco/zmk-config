@@ -4,7 +4,7 @@
 if BOARD_KEEBER
 
 config ZMK_KEYBOARD_NAME
-	default "keeber"
+	default "Hele"
 
 if USB
 
