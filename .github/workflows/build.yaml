@@ -46,21 +46,21 @@ jobs:
         id: west-zephyr-export
         with:
           args: 'zephyr-export'
-      - name: West Build (keeber)
+      - name: West Build (hele)
         uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
-        id: west-build-keeber
+        id: west-build-hele
         with:
-          args: 'build "-s zmk/app -b keeber -- -DZMK_CONFIG=/github/workspace/config"'
-      - name: keeber DTS File
+          args: 'build "-s zmk/app -b hele -- -DZMK_CONFIG=/github/workspace/config"'
+      - name: hele DTS File
         if: ${{ always() }}
-        run: cat -n build/zephyr/keeber.dts.pre.tmp
+        run: cat -n build/zephyr/hele.dts.pre.tmp
       - name: Zaphod .config
         if: ${{ always() }}
         run: cat -n build/zephyr/.config
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 keeber.uf2
+        run: cp build/zephyr/zmk.uf2 hele.uf2
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: keeber.uf2
+          path: hele.uf2
