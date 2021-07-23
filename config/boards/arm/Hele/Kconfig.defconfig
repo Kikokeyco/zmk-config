@@ -28,4 +28,4 @@ config ZMK_USB
 config ZMK_BATTERY_VOLTAGE_DIVIDER
 	default y
 
-endif # BOARD_KEEBER
+endif # BOARD_HELE
