@@ -77,14 +77,14 @@ RC(4,0) RC(4,1) RC(4,2)  RC(4,5)  RC(4,9) RC(4,10) RC(4,11)  RC(4,13) RC(4,14)
 			label = "Blue LED";
 		};
 		Caps_led: led_1 {
-			gpios = <&gpio1 09 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;
 			label = "Caps LED";
 		};
 	};
 	pwmleds {
 		compatible = "pwm-leds";
 		pwm_led_0: pwm_led_Caps {
-			pwms = <&pwm1 09>;
+			pwms = <&pwm1 9>;
 			label = "Caps PWM LED";
 			status = "okay";
 		};
