@@ -8,6 +8,15 @@
 #include <device.h>
 #include <devicetree.h>
 #include <drivers/gpio.h>
+#include <sys/printk.h>
+#include <sys/__assert.h>
+#include <string.h>
+
+/* size of stack area used by each thread */
+#define STACKSIZE 1024
+
+/* scheduling priority used by each thread */
+#define PRIORITY 7
 
 #define SLEEP_TIME_MS 1000
 
