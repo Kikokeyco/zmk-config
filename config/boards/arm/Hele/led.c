@@ -36,7 +36,7 @@
 #endif
 
 struct led {
-	struct gpio_dt_spec spec;
+	struct gpio_dt_spec;
 	const char *gpio_pin_name;
 };
 
