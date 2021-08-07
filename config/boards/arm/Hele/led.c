@@ -26,42 +26,29 @@
 #define FLAGS	0
 #endif
 
-static int pwr_led_init(const struct device *dev) {
-	int ret;
+struct led {
+	struct gpio_dt_spec spec;
+	const char *gpio_pin_name;
+};
 
-	dev = device_get_binding(LED0);
-	if (dev == NULL) {
-		return -EIO;
-	}
+static const struct led led0 = {
+	.spec = GPIO_DT_SPEC_GET_OR(LED0_NODE, gpios, {0}),
+	.gpio_pin_name = DT_PROP_OR(LED0_NODE, label, ""),
+};
 
-	ret = gpio_pin_configure(dev, PIN, GPIO_OUTPUT | FLAGS);
-	if (ret < 0) {
-		return -EIO;
-	}
-
-	return gpio_pin_set(dev, PIN, true);
-}
-SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
-
-void Main(void)
+void blink(const struct led *led, uint32_t sleep_ms, uint32_t id)
 {
-	const struct device *dev;
-	bool led_is_on = true;
+	const struct gpio_dt_spec *spec = &led->spec;
+	int cnt = 0;
 	int ret;
-
-	dev = device_get_binding(LED0);
-	if (dev == NULL) {
-		return;
-	}
-
-	ret = gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE | FLAGS);
-	if (ret < 0) {
-		return;
-	}
-
-	while (1) {
-		gpio_pin_set(dev, PIN, (int) led_is_on);
-		led_is_on = !led_is_on;
-		k_msleep(SLEEP_TIME_MS);
-	}
+	ret = gpio_pin_configure_dt(spec, GPIO_OUTPUT);
 }
+void blink0(void)
+{
+	blink(&led0, 100, 0);
+}
+K_THREAD_DEFINE(blink0_id, STACKSIZE, blink0, NULL, NULL, NULL,
+		PRIORITY, 0, 0);
+
+
+
