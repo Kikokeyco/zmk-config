@@ -33,6 +33,7 @@
 
 static int pwr_led_init(const struct device *dev) {
 	bool zmk_ble_active_profile_is_connected ();
+	bool connected = zmk_ble_active_profile_is_connected;
 
 	dev = device_get_binding(LED1);
 	if (dev == NULL) {
@@ -43,12 +44,12 @@ static int pwr_led_init(const struct device *dev) {
 
 	while (true) {
 		gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
-		gpio_pin_set(dev, PIN, (int)zmk_ble_active_profile_is_connected);
-		if (zmk_ble_active_profile_is_connected = false) {
+		gpio_pin_set(dev, PIN, (int)connected);
+		if (connected = false) {
 			/* Release resource to release device clock */
 			gpio_pin_configure(dev, PIN, GPIO_DISCONNECTED);
 		}
-		if (zmk_ble_active_profile_is_connected = true) {
+		if (connected = true) {
 			/* Release resource to release device clock */
 			gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
 		}
