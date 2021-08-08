@@ -8,11 +8,14 @@
 #include <device.h>
 #include <devicetree.h>
 #include <drivers/gpio.h>
+#include <drivers/led.h>
+#include <syscalls/led.h>
+#include <zmk/ble.h>
 
-#define SLEEP_TIME_MS 1000
 
-/* The devicetree node identifier for the "led0" alias. */
+/* The devicetree node identifier for the "led1" alias. */
 #define LED1_NODE DT_ALIAS(led1)
+
 
 #if DT_NODE_HAS_STATUS(LED1_NODE, okay)
 #define LED1 DT_GPIO_LABEL(LED1_NODE, gpios)
@@ -26,20 +29,28 @@
 #define FLAGS	0
 #endif
 
+
+
 static int pwr_led_init(const struct device *dev) {
-    int ret;
+	bool zmk_ble_active_profile_is_connected ();
 
 	dev = device_get_binding(LED1);
 	if (dev == NULL) {
 		return -EIO;
 	}
 
-	ret = gpio_pin_configure(dev, PIN, GPIO_OUTPUT_HIGH | FLAGS);
-	if (ret < 0) {
-		return -EIO;
-	}
+	__ASSERT_NO_MSG(device_is_ready(dev));
 
-	return gpio_pin_set(dev, PIN, true); // set to false so no constant battery drain, just testing for now
-}
-
+	while (true) {
+		gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
+		gpio_pin_set(dev, PIN, (int)zmk_ble_active_profile_is_connected);
+		if (zmk_ble_active_profile_is_connected = false) {
+			/* Release resource to release device clock */
+			gpio_pin_configure(dev, PIN, GPIO_DISCONNECTED);
+		}
+		if (zmk_ble_active_profile_is_connected = true) {
+			/* Release resource to release device clock */
+			gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
+		}
+		
 SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
