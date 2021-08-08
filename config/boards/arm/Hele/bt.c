@@ -32,8 +32,7 @@
 
 
 static int pwr_led_init(const struct device *dev) {
-	bool zmk_ble_active_profile_is_connected ();
-	bool connected = zmk_ble_active_profile_is_connected;
+	bool connected = zmk_ble_active_profile_is_connected();
 
 	dev = device_get_binding(LED1);
 	if (dev == NULL) {
