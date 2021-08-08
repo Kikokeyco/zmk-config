@@ -31,23 +31,26 @@
 #endif
 
 
-static int led(const struct device *dev)
+void led(void)
 {
-	
+	const struct device *dev;
 	bool led_is_on = true;
 	int ret;
 	
 
 	dev = device_get_binding(LED0);
 	if (dev == NULL) {
-		return -EIO;
+		return;
 	}	
 
-	__ASSERT_NO_MSG(device_is_ready(dev));
+	ret = gpio_pin_configure (dev, PIN, GPIO_OUTPUT_ACTIVE | FLAGS);
+	if (ret < 0) {
+			return;
+	}
 
-	while (true) {
-		gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
+	while (1) {
 		gpio_pin_set(dev, PIN, (int)led_is_on);
+		led_is_on = !led_is_on;
 		if (led_is_on == false) {
 			/* Release resource to release device clock */
 			gpio_pin_configure(dev, PIN, GPIO_DISCONNECTED);

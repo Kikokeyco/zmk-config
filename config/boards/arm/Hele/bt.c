@@ -31,7 +31,7 @@
 
 
 
-static int pwr_led_init(const struct device *dev) {
+static int btled(const struct device *dev) {
 	bool connected = zmk_ble_active_profile_is_connected();
 
 	dev = device_get_binding(LED1);
@@ -53,4 +53,4 @@ static int pwr_led_init(const struct device *dev) {
 			gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
 		}
 		
-SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+SYS_INIT(btled, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
