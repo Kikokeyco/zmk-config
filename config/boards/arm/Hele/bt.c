@@ -33,6 +33,7 @@
 
 static int btled(const struct device *dev) {
 	bool connected = zmk_ble_active_profile_is_connected();
+	int ret;
 
 	dev = device_get_binding(LED1);
 	if (dev == NULL) {
