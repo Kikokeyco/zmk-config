@@ -44,11 +44,11 @@ static int pwr_led_init(const struct device *dev) {
 	while (true) {
 		gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
 		gpio_pin_set(dev, PIN, (int)connected);
-		if (connected = false) {
+		if (connected == false) {
 			/* Release resource to release device clock */
 			gpio_pin_configure(dev, PIN, GPIO_DISCONNECTED);
 		}
-		if (connected = true) {
+		if (connected == true) {
 			/* Release resource to release device clock */
 			gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
 		}
