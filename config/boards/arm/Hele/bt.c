@@ -68,3 +68,7 @@ static int btled(const struct device *dev) {
 }		
 
 SYS_INIT(btled, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+ZMK_LISTENER(dev, output_status_listener);
+ZMK_SUBSCRIPTION(dev, zmk_usb_conn_state_changed);
+ZMK_SUBSCRIPTION(dev, zmk_ble_active_profile_changed);
+ZMK_SUBSCRIPTION(dev, zmk_activity_state_changed);
