@@ -37,38 +37,40 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define FLAGS	0
 #endif
 
-static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+static const struct device *btled;
 
-
-
-
-
-
-static int btled(const struct device *dev) {
+void btledinit(void) {
 	bool connected = zmk_ble_active_profile_is_connected();
 	bool bonded = !zmk_ble_active_profile_is_open();
-	int ret;
+	enum zmk_endpoint selected_endpoint = zmk_endpoints_selected();
 
-	dev = device_get_binding(LED1);
-	if (dev == NULL) {
-		return -EIO;
+	btled = device_get_binding(LED1);
+	if (btled == NULL) {
+		return;
 	}
-
-	ret = gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
-	if (ret < 0) {
-		return -EIO;
-	}	
-	if (bonded) {
-		if (connected) {
-			gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
+	gpio_pin_configure(btled, PIN, GPIO_OUTPUT_ACTIVE);
+	switch (selected_endpoint) {
+	case ZMK_ENDPOINT_USB:
+		gpio_pin_set(btled, PIN, false);
+		break;
+	case ZMK_ENDPOINT_BLE:
+		if (bonded == true){
+			if (connected == true){
+				gpio_pin_set(btled, PIN, (int)1);
+			}
+			else {
+				gpio_pin_set(btled, PIN, (int)0);
+			}
 		}
-		else {gpio_pin_configure(dev, PIN, GPIO_OUTPUT_INACTIVE);}
+		else {
+			gpio_pin_set(btled, PIN, (int)0);	
+		}	
+		break;
 	}
-	
-}		
+}	
 
-SYS_INIT(btled, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
-ZMK_LISTENER(dev, output_status_listener);
-ZMK_SUBSCRIPTION(dev, zmk_usb_conn_state_changed);
-ZMK_SUBSCRIPTION(dev, zmk_ble_active_profile_changed);
-ZMK_SUBSCRIPTION(dev, zmk_activity_state_changed);
+SYS_INIT(btledinit, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+ZMK_LISTENER(btled, btledinit);
+ZMK_SUBSCRIPTION(btled, zmk_usb_conn_state_changed);
+ZMK_SUBSCRIPTION(btled, zmk_ble_active_profile_changed);
+ZMK_SUBSCRIPTION(btled, zmk_endpoint_selection_changed);
