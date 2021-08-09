@@ -4,13 +4,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include <bluetooth/services/bas.h>
+
+#include <logging/log.h>
+LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zephyr.h>
 #include <device.h>
 #include <devicetree.h>
 #include <drivers/gpio.h>
-#include <drivers/led.h>
-#include <syscalls/led.h>
 #include <zmk/ble.h>
+#include <zmk/display/widgets/output_status.h>
+#include <zmk/event_manager.h>
+#include <zmk/events/usb_conn_state_changed.h>
+#include <zmk/events/ble_active_profile_changed.h>
+#include <zmk/events/endpoint_selection_changed.h>
+#include <zmk/endpoints.h>
+
 
 
 /* The devicetree node identifier for the "led1" alias. */
@@ -29,10 +38,16 @@
 #define FLAGS	0
 #endif
 
+static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+
+
+
+
 
 
 static int btled(const struct device *dev) {
 	bool connected = zmk_ble_active_profile_is_connected();
+	bool bonded = !zmk_ble_active_profile_is_open();
 	int ret;
 
 	dev = device_get_binding(LED1);
@@ -40,18 +55,17 @@ static int btled(const struct device *dev) {
 		return -EIO;
 	}
 
-	__ASSERT_NO_MSG(device_is_ready(dev));
-
-	while (true) {
-		gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
-		gpio_pin_set(dev, PIN, (int)connected);
-		if (connected == false) {
-			/* Release resource to release device clock */
-			gpio_pin_configure(dev, PIN, GPIO_DISCONNECTED);
-		}
-		if (connected == true) {
-			/* Release resource to release device clock */
+	ret = gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
+	if (ret < 0) {
+		return -EIO;
+	}	
+	if (bonded) {
+		if (connected) {
 			gpio_pin_configure(dev, PIN, GPIO_OUTPUT_ACTIVE);
 		}
-		
+		else {gpio_pin_configure(dev, PIN, GPIO_OUTPUT_INACTIVE);}
+	}
+	
+}		
+
 SYS_INIT(btled, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
